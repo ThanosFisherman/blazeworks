@@ -11,20 +11,15 @@ const val GRAVITY = 0.2f
 
 class FireworksSystem(private val width: Float, private val height: Float) {
 
-    private val stars = gdxArrayOf<Star>(false, 200)
-    private var rockets = gdxArrayOf<Rocket>(false, 400)
-    private var sparkles = gdxArrayOf<Sparkle>(false, 400)
+    private val stars = MutableList<Star>(120) { Star(width, height) }
+    private var rockets = gdxArrayOf<Rocket>(false, 200)
+    private var sparkles = gdxArrayOf<Sparkle>(false, 200)
     private var exploders = ExploderFactory.exploders
 
-    private val rocketPool: Pool<Rocket> = pool(400) { Rocket(width) }
-    private val sparklePool: Pool<Sparkle> = pool(400) { Sparkle() }
+    private val rocketPool: Pool<Rocket> = pool(200) { Rocket(width) }
+    private val sparklePool: Pool<Sparkle> = pool(200) { Sparkle() }
     private val exploderPool: Pool<Exploder> = ExploderFactory.exploderPool
 
-    init {
-        (1..200).forEach { _ ->
-            stars.add(Star(width, height))
-        }
-    }
 
     fun update(delta: Float) {
 
@@ -93,6 +88,7 @@ class FireworksSystem(private val width: Float, private val height: Float) {
         exploders.clear()
         sparkles.clear()
         rockets.clear()
+        stars.clear()
         rocketPool.clear()
         sparklePool.clear()
         exploderPool.clear()

@@ -16,6 +16,7 @@ fun main() {
             val displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode()
             val width = displayMode.width * 0.75f
             val height = width / 16f * 9f
+            println("$width $height")
             setWindowedMode(width.toInt(), height.toInt())
             setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setTitle("BLAZING Fireworks!")

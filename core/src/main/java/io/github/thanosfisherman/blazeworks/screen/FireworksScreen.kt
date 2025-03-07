@@ -34,8 +34,7 @@ class FireworksScreen : KtxScreen {
     private val fireworksSystem = FireworksSystem(width, height)
     private val touchPos = vec3(0f, 0f, 0f)
 
-
-    var isRendered = false
+    var isRendered = true
     override fun show() {
 
         Gdx.input.inputProcessor = object : KtxInputAdapter {
@@ -104,7 +103,7 @@ class FireworksScreen : KtxScreen {
 
         fireworksSystem.update(delta)
 
-        shapeRenderer.use(ShapeRenderer.ShapeType.Filled) { shape ->
+        shapeRenderer.use(ShapeRenderer.ShapeType.Line) { shape ->
             fireworksSystem.draw(shape, delta)
         }
 

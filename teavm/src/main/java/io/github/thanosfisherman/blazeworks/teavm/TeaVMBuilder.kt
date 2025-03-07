@@ -14,8 +14,8 @@ fun main() {
     teaBuildConfiguration.assetsPath.add(AssetFileHandle("../assets"))
     teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
     teaBuildConfiguration.htmlTitle = "BLAZING Fireworks!"
-    teaBuildConfiguration.htmlWidth = 900
-    teaBuildConfiguration.htmlHeight = 900
+    teaBuildConfiguration.htmlWidth = 1920
+    teaBuildConfiguration.htmlHeight = 1080
 
     // Register any extra classpath assets here:
     // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io.github.thanosfisherman.blazeworks/asset.extension");
