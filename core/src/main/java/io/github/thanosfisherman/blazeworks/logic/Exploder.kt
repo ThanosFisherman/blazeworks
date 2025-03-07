@@ -5,24 +5,36 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.E
 import com.badlogic.gdx.math.MathUtils.log
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pool.Poolable
 
-class Exploder(
-    rocketPos: Vector2,
-    fade: Float,
-    private val speed: Vector2,
-    private val color: Color,
-    private val type: ExploderFactory.Type = ExploderFactory.Type.DEFAULT,
-) : Sparkle(rocketPos, fade) {
+class Exploder : Sparkle(), Poolable {
+
+    private lateinit var color: Color
+    private lateinit var speed: Vector2
+    private lateinit var type: ExploderFactory.Type
+
+    fun init(
+        rocketPos: Vector2,
+        fade: Float,
+        speed: Vector2,
+        color: Color,
+        type: ExploderFactory.Type = ExploderFactory.Type.DEFAULT,
+    ) {
+        super.init(rocketPos, fade)
+        this.color = color
+        this.speed = speed
+        this.type = type
+    }
 
     override fun draw(shapeRenderer: ShapeRenderer) {
         newXPos = rocketPos.x + log(E, this.burnTime) * 8 * this.speed.x
         newYPos = rocketPos.y + log(E, this.burnTime) * 8 * this.speed.y + this.burnTime * 0.2f
         color.a = _brightness
         shapeRenderer.color = color
-        shapeRenderer.circle(
+        shapeRenderer.point(
             newXPos,
             newYPos,
-            2f
+            0f
         )
 
         if (type == ExploderFactory.Type.WRITER) {

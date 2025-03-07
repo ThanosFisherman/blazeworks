@@ -2,16 +2,23 @@ package io.github.thanosfisherman.blazeworks.logic
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.utils.Pool
 import io.github.thanosfisherman.blazeworks.utils.Juniper
+import ktx.assets.pool
+import ktx.collections.gdxArrayOf
 
 const val GRAVITY = 0.2f
 
 class FireworksSystem(private val width: Float, private val height: Float) {
 
-    private val stars = mutableListOf<Star>()
-    private var rockets = mutableListOf<Rocket>()
-    private var sparkles = mutableListOf<Sparkle>()
+    private val stars = gdxArrayOf<Star>(false, 200)
+    private var rockets = gdxArrayOf<Rocket>(false, 400)
+    private var sparkles = gdxArrayOf<Sparkle>(false, 400)
     private var exploders = ExploderFactory.exploders
+
+    private val rocketPool: Pool<Rocket> = pool(400) { Rocket(width) }
+    private val sparklePool: Pool<Sparkle> = pool(400) { Sparkle() }
+    private val exploderPool: Pool<Exploder> = ExploderFactory.exploderPool
 
     init {
         (1..200).forEach { _ ->
@@ -22,7 +29,7 @@ class FireworksSystem(private val width: Float, private val height: Float) {
     fun update(delta: Float) {
 
         if (Juniper.random.nextFloat() < 0.03) {
-            val rocket = Rocket(width)
+            val rocket = rocketPool.obtain()
             rockets.add(rocket)
         }
 
@@ -30,8 +37,10 @@ class FireworksSystem(private val width: Float, private val height: Float) {
         rockets.forEach { rocket ->
             rocket.update(delta)
 
-            if (rocket.isSparkleTrail)
-                sparkles.add(Sparkle(rocket.position))
+            if (rocket.isSparkleTrail) {
+                val sparkle = sparklePool.obtain().also { it.init(rocket.position) }
+                sparkles.add(sparkle)
+            }
 
             if (rocket.isExploded) {
                 ExploderFactory.createExploder(rocket.type, rocket.position, rocket.hue)
@@ -52,7 +61,7 @@ class FireworksSystem(private val width: Float, private val height: Float) {
     }
 
     fun justExplode(touchPos: Vector3) {
-        val rocket = Rocket(width)
+        val rocket = rocketPool.obtain()
         rockets.add(rocket)
         rocket.justExplode(touchPos)
     }
@@ -60,20 +69,32 @@ class FireworksSystem(private val width: Float, private val height: Float) {
     private fun removeElements() {
         for (i in sparkles.size - 1 downTo 0) {
             if (sparkles[i].brightness < 0) {
-                sparkles.removeAt(i)
+                val sparkle = sparkles.removeIndex(i)
+                sparklePool.free(sparkle)
             }
         }
 
         for (i in rockets.size - 1 downTo 0) {
             if (rockets[i].isExploded) {
-                rockets.removeAt(i)
+                val rocket = rockets.removeIndex(i)
+                rocketPool.free(rocket)
             }
         }
 
         for (i in exploders.size - 1 downTo 0) {
             if (exploders[i].brightness < 0) {
-                exploders.removeAt(i)
+                val exploder = exploders.removeIndex(i)
+                exploderPool.free(exploder)
             }
         }
+    }
+
+    fun dispose() {
+        exploders.clear()
+        sparkles.clear()
+        rockets.clear()
+        rocketPool.clear()
+        sparklePool.clear()
+        exploderPool.clear()
     }
 }
