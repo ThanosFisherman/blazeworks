@@ -13,7 +13,7 @@ fun main() {
     val teaBuildConfiguration = TeaBuildConfiguration()
     teaBuildConfiguration.assetsPath.add(AssetFileHandle("../assets"))
     teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
-    teaBuildConfiguration.htmlTitle = "TeaVM App"
+    teaBuildConfiguration.htmlTitle = "BLAZING Fireworks!"
     teaBuildConfiguration.htmlWidth = 900
     teaBuildConfiguration.htmlHeight = 900
 

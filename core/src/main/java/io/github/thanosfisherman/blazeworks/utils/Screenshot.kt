@@ -12,9 +12,9 @@ import ktx.graphics.use
 import java.util.zip.Deflater
 
 class Screenshot(
-    private val shapeRenderer: ShapeRenderer,
     private val screenshotWidth: Int,
-    private val screenshotHeight: Int
+    private val screenshotHeight: Int,
+    private val shapeRenderer: ShapeRenderer = ShapeRenderer()
 ) {
     private var frameBuffer: FrameBuffer? = null
 

@@ -10,7 +10,7 @@ import ktx.graphics.use
 
 
 class FrameRate : Disposable {
-    private var isRendered = false
+    var isRendered = false
     private var sinceChange = 0f
     private var frameRate: Float = 0f
     private val font: BitmapFont
