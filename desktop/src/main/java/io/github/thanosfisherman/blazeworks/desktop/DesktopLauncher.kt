@@ -18,7 +18,7 @@ fun main() {
             val height = width / 16f * 9f
             setWindowedMode(width.toInt(), height.toInt())
             setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
-            setTitle("Game")
+            setTitle("BLAZING Fireworks!")
             useVsync(true)
             //// Limits FPS to the refresh rate of the currently active monitor.
             setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate)
