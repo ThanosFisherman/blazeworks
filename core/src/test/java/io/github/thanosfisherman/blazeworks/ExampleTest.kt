@@ -1,4 +1,4 @@
-package io.github.thanosfisherman.game
+package io.github.thanosfisherman.blazeworks
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

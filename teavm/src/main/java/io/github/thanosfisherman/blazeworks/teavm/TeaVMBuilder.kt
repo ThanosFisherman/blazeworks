@@ -1,6 +1,6 @@
 @file:JvmName("TeaVMBuilder")
 
-package io.github.thanosfisherman.game.teavm
+package io.github.thanosfisherman.blazeworks.teavm
 
 import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration
@@ -18,10 +18,10 @@ fun main() {
     teaBuildConfiguration.htmlHeight = 900
 
     // Register any extra classpath assets here:
-    // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io/github/thanosfisherman/game/asset.extension");
+    // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io.github.thanosfisherman.blazeworks/asset.extension");
 
     // Register any classes or packages that require reflection here:
-    // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.game.reflect");
+    // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.blazeworks.reflect");
     val tool = TeaBuilder.config(teaBuildConfiguration)
     tool.optimizationLevel = TeaVMOptimizationLevel.FULL
     tool.setObfuscated(true)

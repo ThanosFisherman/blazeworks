@@ -1,6 +1,6 @@
-package io.github.thanosfisherman.game
+package io.github.thanosfisherman.blazeworks
 
-import io.github.thanosfisherman.game.screen.FirstScreen
+import io.github.thanosfisherman.blazeworks.screen.FirstScreen
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.log.logger

@@ -1,10 +1,10 @@
 @file:JvmName("DesktopLauncher")
 
-package io.github.thanosfisherman.game.desktop
+package io.github.thanosfisherman.blazeworks.desktop
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
-import io.github.thanosfisherman.game.Game
+import io.github.thanosfisherman.blazeworks.Game
 
 fun main() {
     // This handles macOS support and helps on Windows.

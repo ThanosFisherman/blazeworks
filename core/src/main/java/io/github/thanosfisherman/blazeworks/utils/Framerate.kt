@@ -1,4 +1,4 @@
-package io.github.thanosfisherman.game.utils
+package io.github.thanosfisherman.blazeworks.utils
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
