@@ -3,6 +3,7 @@ package io.github.thanosfisherman.blazeworks.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Pixmap
@@ -32,7 +33,7 @@ class FireworksScreen : KtxScreen {
     private val batch = SpriteBatch()
     private lateinit var currentFbo: FrameBuffer
     private lateinit var currentRegion: TextureRegion
-    private val fireworksSystem = FireworksSystem(width, height)
+    private val fireworksSystem: FireworksSystem = FireworksSystem(width, height, AssetManager())
     private val touchPos = vec3(0f, 0f, 0f)
 
     var isRendered = true
@@ -80,10 +81,10 @@ class FireworksScreen : KtxScreen {
         currentRegion.flip(false, true)
 
         // After creating fboA and fboB:
-        currentFbo.begin();
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        currentFbo.end();
+        currentFbo.begin()
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        currentFbo.end()
     }
 
     override fun render(delta: Float) {
