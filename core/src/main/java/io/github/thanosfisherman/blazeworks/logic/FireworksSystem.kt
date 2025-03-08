@@ -24,16 +24,7 @@ class FireworksSystem(private val width: Float, private val height: Float, priva
     private val exploderPool: Pool<Exploder> = ExploderFactory.exploderPool
     private var sound: Sound? = null
 
-    init {
-        SoundAsset.entries.forEach { assetManager.load(it) }
-    }
-
     fun update(delta: Float) {
-
-        assetManager.update(17)
-        if (!assetManager.isFinished) {
-            return
-        }
 
         sound = assetManager[SoundAsset.entries.randomJuniper()]
         if (Juniper.random.nextFloat() < 0.03) {

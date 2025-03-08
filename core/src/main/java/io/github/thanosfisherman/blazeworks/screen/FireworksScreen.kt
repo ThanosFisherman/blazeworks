@@ -22,7 +22,7 @@ import ktx.graphics.use
 import ktx.math.vec3
 
 
-class FireworksScreen : KtxScreen {
+class FireworksScreen(assetManager: AssetManager) : KtxScreen {
 
     private val width = Gdx.graphics.width.toFloat()
     private val height = Gdx.graphics.height.toFloat()
@@ -33,7 +33,7 @@ class FireworksScreen : KtxScreen {
     private val batch = SpriteBatch()
     private lateinit var currentFbo: FrameBuffer
     private lateinit var currentRegion: TextureRegion
-    private val fireworksSystem: FireworksSystem = FireworksSystem(width, height, AssetManager())
+    private val fireworksSystem: FireworksSystem = FireworksSystem(width, height, assetManager)
     private val touchPos = vec3(0f, 0f, 0f)
 
     var isRendered = true
