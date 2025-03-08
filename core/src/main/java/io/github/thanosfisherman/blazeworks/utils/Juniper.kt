@@ -15,3 +15,7 @@ object Juniper {
             PouchRandom()
         }
 }
+
+fun <T> Collection<T>.randomJuniper(): T {
+    return elementAt(Juniper.random.nextInt(this.size))
+}
