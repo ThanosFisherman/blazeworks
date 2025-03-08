@@ -13,15 +13,10 @@ class FrameRate : Disposable {
     var isRendered = false
     private var sinceChange = 0f
     private var frameRate: Float = 0f
-    private val font: BitmapFont
-
-    companion object {
-        val spriteBatch = SpriteBatch()
-    }
+    private val font: BitmapFont = BitmapFont()
+    private val spriteBatch = SpriteBatch()
 
     init {
-        frameRate = Gdx.graphics.framesPerSecond.toFloat()
-        font = BitmapFont()
         font.region.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest)
     }
 
@@ -49,5 +44,6 @@ class FrameRate : Disposable {
 
     override fun dispose() {
         font.disposeSafely()
+        spriteBatch.disposeSafely()
     }
 }

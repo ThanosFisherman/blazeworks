@@ -1,10 +1,9 @@
 package io.github.thanosfisherman.blazeworks.logic
 
-import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.Pool
+import io.github.thanosfisherman.blazeworks.utils.AssetService
 import io.github.thanosfisherman.blazeworks.utils.Juniper
 import io.github.thanosfisherman.blazeworks.utils.randomJuniper
 import ktx.assets.pool
@@ -12,7 +11,7 @@ import ktx.collections.gdxArrayOf
 
 const val GRAVITY = 0.2f
 
-class FireworksSystem(private val width: Float, private val height: Float, private val assetManager: AssetManager) {
+class FireworksSystem(private val width: Float, private val height: Float, private val assetService: AssetService) {
 
     private val stars = MutableList<Star>(110) { Star(width, height) }
     private var rockets = gdxArrayOf<Rocket>(false, 200)
@@ -22,11 +21,9 @@ class FireworksSystem(private val width: Float, private val height: Float, priva
     private val rocketPool: Pool<Rocket> = pool(200) { Rocket(width) }
     private val sparklePool: Pool<Sparkle> = pool(200) { Sparkle() }
     private val exploderPool: Pool<Exploder> = ExploderFactory.exploderPool
-    private var sound: Sound? = null
 
     fun update(delta: Float) {
 
-        sound = assetManager[SoundAsset.entries.randomJuniper()]
         if (Juniper.random.nextFloat() < 0.03) {
             val rocket = rocketPool.obtain()
             rockets.add(rocket)
@@ -43,7 +40,7 @@ class FireworksSystem(private val width: Float, private val height: Float, priva
 
             if (rocket.isExploded) {
                 ExploderFactory.createExploder(rocket.type, rocket.position, rocket.hue)
-                sound?.play()
+                assetService.play(SoundAsset.entries.randomJuniper())
             }
         }
     }
@@ -90,7 +87,7 @@ class FireworksSystem(private val width: Float, private val height: Float, priva
     }
 
     fun dispose() {
-        assetManager.dispose()
+        assetService.dispose()
         exploders.clear()
         sparkles.clear()
         rockets.clear()

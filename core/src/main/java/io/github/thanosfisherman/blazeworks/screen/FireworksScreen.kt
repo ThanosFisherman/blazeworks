@@ -3,7 +3,6 @@ package io.github.thanosfisherman.blazeworks.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Pixmap
@@ -11,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import io.github.thanosfisherman.blazeworks.Game
 import io.github.thanosfisherman.blazeworks.logic.FireworksSystem
 import io.github.thanosfisherman.blazeworks.utils.FrameRate
 import io.github.thanosfisherman.blazeworks.utils.Screenshot
@@ -22,7 +22,7 @@ import ktx.graphics.use
 import ktx.math.vec3
 
 
-class FireworksScreen(assetManager: AssetManager) : KtxScreen {
+class FireworksScreen(game: Game) : KtxScreen {
 
     private val width = Gdx.graphics.width.toFloat()
     private val height = Gdx.graphics.height.toFloat()
@@ -33,7 +33,7 @@ class FireworksScreen(assetManager: AssetManager) : KtxScreen {
     private val batch = SpriteBatch()
     private lateinit var currentFbo: FrameBuffer
     private lateinit var currentRegion: TextureRegion
-    private val fireworksSystem: FireworksSystem = FireworksSystem(width, height, assetManager)
+    private val fireworksSystem: FireworksSystem = FireworksSystem(width, height, game.assetService)
     private val touchPos = vec3(0f, 0f, 0f)
 
     var isRendered = true
@@ -89,7 +89,6 @@ class FireworksScreen(assetManager: AssetManager) : KtxScreen {
 
     override fun render(delta: Float) {
         super.render(delta)
-        fps.update(delta)
         cam.update()
         cam.center(width, height)
         if (!isRendered) {
@@ -113,10 +112,11 @@ class FireworksScreen(assetManager: AssetManager) : KtxScreen {
 
         currentFbo.end()
         clearScreen(0f, 0f, 0f, 1f)
+        fps.update(delta)
         batch.use { batch ->
             batch.draw(currentRegion, 0f, 0f, width, height)
+            fps.render(batch)
         }
-        fps.render()
     }
 
     override fun resize(width: Int, height: Int) {
