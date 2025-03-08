@@ -1,2 +1,5 @@
-# libgdx-bootstrapper
-Skeleton template for Kotlin libgdx apps
+# BLaZiNgLy BLaZiNg Fireworks 🎆
+
+* Left mouse click and drag for BOOM BOOM 🚀
+* **"s"** to Pause/Resume
+* **"d"** to Crash 💣 (sorry)
