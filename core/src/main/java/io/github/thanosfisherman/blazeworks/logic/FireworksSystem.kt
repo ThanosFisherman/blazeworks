@@ -11,7 +11,7 @@ const val GRAVITY = 0.2f
 
 class FireworksSystem(private val width: Float, private val height: Float) {
 
-    private val stars = MutableList<Star>(120) { Star(width, height) }
+    private val stars = MutableList<Star>(110) { Star(width, height) }
     private var rockets = gdxArrayOf<Rocket>(false, 200)
     private var sparkles = gdxArrayOf<Sparkle>(false, 200)
     private var exploders = ExploderFactory.exploders

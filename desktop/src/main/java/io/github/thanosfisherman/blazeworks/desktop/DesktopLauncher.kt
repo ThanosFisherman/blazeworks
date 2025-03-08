@@ -26,8 +26,8 @@ fun main() {
             //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
             //// useful for testing performance, but can also be very stressful to some hardware.
             //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-            setBackBufferConfig(8,8,8,8,16,8,4)
-            setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL30,4,2)
+            setBackBufferConfig(8,8,8,8,8,8,4)
+//            setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL30,4,2)
         }
 
     Lwjgl3Application(Game(), config)

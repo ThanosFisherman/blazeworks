@@ -10,8 +10,8 @@ import ktx.collections.gdxArrayOf
 import ktx.math.vec2
 
 object ExploderFactory {
-    val exploders = gdxArrayOf<Exploder>(false, 800)
-    val exploderPool: Pool<Exploder> = pool(800) { Exploder() }
+    val exploders = gdxArrayOf<Exploder>(false, 400)
+    val exploderPool: Pool<Exploder> = pool(480) { Exploder() }
 
     enum class Type {
         WRITER, SIMPLE, SPARKLER, SPLIT, MEGA, PENT, COMET, BURST, DOUBLE, DEFAULT;

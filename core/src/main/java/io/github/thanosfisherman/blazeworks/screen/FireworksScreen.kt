@@ -5,9 +5,10 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.graphics.glutils.FloatFrameBuffer
+import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import io.github.thanosfisherman.blazeworks.logic.FireworksSystem
 import io.github.thanosfisherman.blazeworks.utils.FrameRate
@@ -29,7 +30,7 @@ class FireworksScreen : KtxScreen {
     private val shapeRenderer = ShapeRenderer()
     private val cam = OrthographicCamera(width, height)
     private val batch = SpriteBatch()
-    private lateinit var currentFbo: FloatFrameBuffer
+    private lateinit var currentFbo: FrameBuffer
     private lateinit var currentRegion: TextureRegion
     private val fireworksSystem = FireworksSystem(width, height)
     private val touchPos = vec3(0f, 0f, 0f)
@@ -68,11 +69,13 @@ class FireworksScreen : KtxScreen {
             }
         }
 
-        currentFbo = FloatFrameBuffer(
-            width.toInt(),
-            height.toInt(),
-            false
-        ) //FrameBuffer(Pixmap.Format.RGBA8888,width.toInt(), height.toInt(), false)
+        currentFbo = FrameBuffer(Pixmap.Format.RGBA8888, width.toInt(), height.toInt(), false)
+//        FloatFrameBuffer(
+//            width.toInt(),
+//            height.toInt(),
+//            false
+//        )
+        //FrameBuffer(Pixmap.Format.RGBA8888,width.toInt(), height.toInt(), false)
         currentRegion = TextureRegion(currentFbo.colorBufferTexture)
         currentRegion.flip(false, true)
 
