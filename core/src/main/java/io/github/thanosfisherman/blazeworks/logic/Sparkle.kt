@@ -57,7 +57,7 @@ open class Sparkle : Poolable {
 
         shapeRenderer.color = color
         shapeRenderer.color.a = _brightness
-        shapeRenderer.point(newXPos, newYPos, 0f)
+        shapeRenderer.circle(newXPos, newYPos, 1f)
 
         this._brightness -= this.fade;
         this.burnTime++

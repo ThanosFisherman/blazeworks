@@ -100,13 +100,13 @@ class FireworksScreen(game: Game) : KtxScreen {
         // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.projectionMatrix = cam.combined
         shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
-            it.setColor(0f, 0f, 0f, 0.089f)
+            it.setColor(0f, 0f, 0f, 0.065f)
             it.rect(0f, 0f, width, height)
         }
 
         fireworksSystem.update(delta)
 
-        shapeRenderer.use(ShapeRenderer.ShapeType.Line) { shape ->
+        shapeRenderer.use(ShapeRenderer.ShapeType.Filled) { shape ->
             fireworksSystem.draw(shape, delta)
         }
 

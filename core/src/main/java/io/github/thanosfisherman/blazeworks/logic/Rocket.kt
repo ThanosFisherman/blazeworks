@@ -56,7 +56,7 @@ class Rocket(private val width: Float) : Poolable {
     fun draw(shapeRenderer: ShapeRenderer) {
         color.a = 1f
         shapeRenderer.color = color
-        shapeRenderer.point(position.x, position.y, 0f)
+        shapeRenderer.circle(position.x, position.y, 1f)
     }
 
     override fun reset() {

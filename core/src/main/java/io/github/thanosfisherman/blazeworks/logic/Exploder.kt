@@ -31,10 +31,10 @@ class Exploder : Sparkle(), Poolable {
         newYPos = rocketPos.y + log(E, this.burnTime) * 8 * this.speed.y + this.burnTime * 0.2f
         color.a = _brightness
         shapeRenderer.color = color
-        shapeRenderer.point(
+        shapeRenderer.circle(
             newXPos,
             newYPos,
-            0f
+            1f
         )
 
         if (type == ExploderFactory.Type.WRITER) {

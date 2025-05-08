@@ -13,7 +13,7 @@ import java.io.File
 fun main() {
     val teaBuildConfiguration = TeaBuildConfiguration()
     teaBuildConfiguration.assetsPath.add(AssetFileHandle("../assets"))
-    teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
+    teaBuildConfiguration.webappPath = File("build/dist").canonicalPath
     teaBuildConfiguration.htmlTitle = "BLAZING Fireworks!"
     teaBuildConfiguration.htmlWidth = 1920
     teaBuildConfiguration.htmlHeight = 1080
