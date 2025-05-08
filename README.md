@@ -2,4 +2,4 @@
 
 * Left mouse click and drag for BOOM BOOM 🚀
 * **"s"** to Pause/Resume
-* **"d"** to Crash 💣 (sorry)
+* **"d"** to display FPS
