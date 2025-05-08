@@ -5,6 +5,7 @@ package io.github.thanosfisherman.blazeworks.teavm
 import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder
+import org.teavm.tooling.TeaVMTargetType
 import org.teavm.vm.TeaVMOptimizationLevel
 import java.io.File
 
@@ -25,6 +26,7 @@ fun main() {
     val tool = TeaBuilder.config(teaBuildConfiguration)
     tool.optimizationLevel = TeaVMOptimizationLevel.FULL
     tool.setObfuscated(true)
-    tool.mainClass = TeaVMLauncher::class.java.getName()
+    tool.mainClass = TeaVMLauncher::class.java.name
+    tool.targetType = TeaVMTargetType.WEBASSEMBLY_GC;
     TeaBuilder.build(tool)
 }

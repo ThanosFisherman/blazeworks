@@ -6,19 +6,11 @@ object Dependencies {
         // NOTE TO DEVS: Please keep alphabetical order for readability and extendability
         const val ANDROID_GRADLE_PLUGIN =
             "com.android.tools.build:gradle:${Versions.Plugins.agpVersion}"
-        const val DESUGARING_PLUGIN =
-            "com.android.tools:desugar_jdk_libs:${Versions.Plugins.desugaring}"
-        const val GOOGLE_PLAY_SERVICES_GRADLE_PLUGIN =
-            "com.google.gms:google-services:${Versions.Plugins.googlePlayServices}"
 
-        const val KOTLIN_ALL_OPEN = "org.jetbrains.kotlin:kotlin-allopen:${Versions.kotlin}"
         const val KOTLIN_GRADLE_PLUGIN =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         const val KOTLIN_SERIALIZATION =
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
-
-        const val SAFE_ARGS_GRADLE_PLUGIN =
-            "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 
         const val UNDERCOUCH = "de.undercouch:gradle-download-task:${Versions.Plugins.undercouch}"
 

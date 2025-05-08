@@ -1,5 +1,4 @@
 import org.gradle.api.JavaVersion
-import org.gradle.api.Project
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object Versions {
@@ -7,7 +6,7 @@ object Versions {
     // region Common
 
     const val kotlin = "2.1.0"
-    const val coroutines = "1.10.1"
+    const val coroutines = "1.10.2"
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.6.3"
     const val navigation = "2.5.3"
@@ -22,11 +21,7 @@ object Versions {
     }
 
     object Plugins {
-        const val agpVersion = "8.7.3"
-
-        const val desugaring = "2.1.4"
-
-        const val googlePlayServices = "4.3.10"
+        const val agpVersion = "8.9.2"
 
         const val undercouch = "5.6.0"
         const val grettyVersion = "3.1.5"
@@ -38,8 +33,8 @@ object Versions {
         const val gdxControllersVersion = "2.2.1"
         const val gdxControllerUtilsVersion = "2.3.0"
         const val ktxVersion = "1.13.1-rc1"
-        const val gdxTeaVMVersion = "1.1.0"
-        const val teaVMVersion = "0.11.0"
+        const val gdxTeaVMVersion = "1.2.0"
+        const val teaVMVersion = "0.12.0"
         const val box2dlightsVersion = "1.5"
         const val aiVersion = "1.8.2"
         const val kryoVersion = "5.5.0"
@@ -55,18 +50,18 @@ object Versions {
         const val universalTweenVersion = "6.3.3"
         const val graalVersion = "2.0.1"
         const val ode4jVersion = "master-SNAPSHOT"
-        const val juniperVersion = "0.6.5"
-        const val juniperDigitalVersion = "0.6.1"
+        const val juniperVersion = "0.6.7"
+        const val juniperDigitalVersion = "0.6.2"
     }
 
 
-    object Java {
+    object Target {
+        const val jvmTarget = "21"
+        const val compileSdkVersion = 35
+        const val minSdkVersion = 24
+        const val targetSdkVersion = 35
         val sourceCompatibility = JavaVersion.VERSION_21
         val targetCompatibility = JavaVersion.VERSION_21
         val javaToolchainVersion = JavaLanguageVersion.of(21)
-    }
-
-    object Kotlin {
-        const val jvmTarget = "21"
     }
 }

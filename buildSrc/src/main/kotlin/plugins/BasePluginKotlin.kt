@@ -21,7 +21,7 @@ class BasePluginKotlin : Plugin<Project> {
 
         project.extensions.configure<JavaPluginExtension>("java") {
             toolchain {
-                languageVersion.set(Versions.Java.javaToolchainVersion)
+                languageVersion.set(Versions.Target.javaToolchainVersion)
             }
 //            sourceCompatibility = Versions.Java.sourceCompatibility
 //            targetCompatibility = Versions.Java.targetCompatibility
@@ -29,7 +29,7 @@ class BasePluginKotlin : Plugin<Project> {
 
         project.extensions.configure<KotlinJvmProjectExtension>("kotlin") {
             jvmToolchain {
-                languageVersion.set(Versions.Java.javaToolchainVersion)
+                languageVersion.set(Versions.Target.javaToolchainVersion)
             }
         }
 
@@ -48,7 +48,7 @@ class BasePluginKotlin : Plugin<Project> {
         project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
             compilerOptions {
                 languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
-                jvmTarget.set(JvmTarget.fromTarget(Versions.Kotlin.jvmTarget))
+                jvmTarget.set(JvmTarget.fromTarget(Versions.Target.jvmTarget))
             }
         }
     }

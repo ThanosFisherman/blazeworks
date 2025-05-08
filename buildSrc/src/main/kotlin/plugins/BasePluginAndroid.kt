@@ -15,73 +15,48 @@ class BasePluginAndroid : Plugin<Project> {
     override fun apply(project: Project) {
         val pluginManager = project.pluginManager
 
-        //pluginManager.apply(Dependencies.Plugins.ANDROID_LIBRARY_APPLY)
         pluginManager.apply(Dependencies.Plugins.KOTLIN_ANDROID_APPLY)
         pluginManager.apply(Dependencies.Plugins.ANDROID_APPLICATION_APPLY)
-//        pluginManager.apply(Dependencies.Plugins.KOTLIN_PARCELIZE_APPLY)
-        // pluginManager.apply(Dependencies.Plugins.KOTLIN_KAPT_APPLY)
 
+
+        applyAndroidPlugin(project)
+
+        project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+            compilerOptions {
+                languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
+                jvmTarget.set(JvmTarget.fromTarget(Versions.Target.jvmTarget))
+            }
+        }
+        project.tasks.register("testClasses")
+    }
+
+    private fun applyAndroidPlugin(project: Project) {
         project.dependencies {
             //coreLibraryDesugaring(Dependencies.Plugins.DESUGARING_PLUGIN)
         }
         project.configurations.create("natives")
         project.extensions.configure<BaseAppModuleExtension>("android") {
-            namespace = "io.github.thanosfisherman.blazeworks.android"
-            compileSdk = Versions.Android.compileSdkVersion
 
-            sourceSets {
-                getByName("main") {
-                    manifest.srcFile("src/main/AndroidManifest.xml")
-                    java.srcDirs("src/main/java")
-                    kotlin.srcDirs("src/main/kotlin")
-                    aidl.srcDirs("src/main/java")
-                    renderscript.srcDirs("src/main/java")
-                    res.srcDirs("res")
-                    assets.srcDirs("../assets")
-                    jniLibs.srcDirs("libs")
-                }
-
-                getByName("test") {
-                    setRoot("src/test")
-                    assets.srcDirs("src/test/assets")
-                }
-
-                testOptions {
-                    unitTests.isReturnDefaultValues = true
-                    /**
-                     * Gradle Daemons that is executing the tests on the build server has Java heap size set
-                     * to 512MB by default, changing it to 4GB is equal to setup with local machine with 16GB
-                     * and prevents the test to run into OutOfMemory Errors in tests
-                     */
-                    unitTests.all {
-                        it.jvmArgs("-Xmx4g")
-                    }
-                }
-            }
+            namespace =  BuildType.APPLICATION_ID
+            compileSdk = Versions.Target.compileSdkVersion
 
             defaultConfig {
-                applicationId = "io.github.thanosfisherman.blazeworks.android"
-                minSdk = Versions.Android.minSdkVersion
-                targetSdk = Versions.Android.targetSdkVersion
+                applicationId = BuildType.APPLICATION_ID
+                minSdk = Versions.Target.minSdkVersion
+                targetSdk = Versions.Target.targetSdkVersion
                 versionCode = 1
-                versionName = "1.0"
+                versionName = "1.0.0"
 
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                vectorDrawables {
-                    useSupportLibrary = true
-                }
 
-                // only required for android modules dependent on appauth library directly
-                // or modules dependent on sub-modules requiring appauth library (transitive)
-                // but it is easier to handle it for all android modules here instead.
-                // stands as long as :modules_core:database required with appauth dependency everywhere
-                manifestPlaceholders["appAuthRedirectScheme"] = BuildType.APPLICATION_ID
             }
 
             buildTypes {
                 getByName(BuildType.DEBUG).isDefault = true
                 getByName(BuildType.RELEASE) {
                     isMinifyEnabled = false
+                    isShrinkResources = false
+                    isDebuggable = false
                     proguardFiles(
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         "proguard-rules.pro"
@@ -91,19 +66,27 @@ class BasePluginAndroid : Plugin<Project> {
 
             compileOptions {
                 // isCoreLibraryDesugaringEnabled = true
-                sourceCompatibility = Versions.Java.sourceCompatibility
-                targetCompatibility = Versions.Java.targetCompatibility
+                sourceCompatibility = Versions.Target.sourceCompatibility
+                targetCompatibility = Versions.Target.targetCompatibility
+            }
+            buildFeatures {
+                // compose = true
+                viewBinding = true
             }
 
             packaging {
                 resources {
                     excludes.apply {
                         add("/META-INF/{AL2.0,LGPL2.1}")
-                        add("META-INF/robovm/ios/robovm.xml")
                         add("META-INF/DEPENDENCIES.txt")
                         add("META-INF/DEPENDENCIES")
                         add("META-INF/dependencies.txt")
-                        add("**/*.gwt.xml")
+                        add("META-INF/LICENSE")
+                        add("META-INF/LICENSE.txt")
+                        add("META-INF/NOTICE")
+                        add("LICENSE")
+                        add("LICENSE.txt")
+                        add("NOTICE")
                     }
                     pickFirsts.apply {
                         add("META-INF/LICENSE.txt")
@@ -117,21 +100,5 @@ class BasePluginAndroid : Plugin<Project> {
                 }
             }
         }
-
-//        project.tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
-//            compilerOptions {
-//                freeCompilerArgs.add("-Xexport-kdoc")
-//            }
-//        }
-
-        project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
-            compilerOptions {
-                languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
-                jvmTarget.set(JvmTarget.fromTarget(Versions.Kotlin.jvmTarget))
-            }
-        }
-        // To suppress the error about android not being able to find testClasses.
-        // Might not be needed after all
-        project.task("testClasses")
     }
 }
